@@ -5,25 +5,25 @@ import fr.leroideskiwis.phasmo.Entity;
 public class Room {
 
     private int temperature;
-    private Entity[][] entities;
-    private int size;
+    private final Entity[][] entities;
+    private final int size;
 
     public Room(int temperature, int size, Entity[][] entities) {
         this.temperature = temperature;
-        this.size = size;
         this.entities = entities;
+        this.size = size;
     }
 
-    public Room(int size, Entity[][] showables){
-        this(20, size, showables);
+    public Room(int temperature, int size) {
+        this(temperature, size, new Entity[size][size]);
     }
 
-    public Room(Entity[][] showables){
-        this(10, showables);
+    public Room(int size){
+        this(20, size);
     }
 
     public Room(){
-        this(new Entity[][]{});
+        this(10);
     }
 
     public void addEntity(int x, int y, Entity entity){
@@ -43,11 +43,20 @@ public class Room {
      * @return true if the entity can be moved and false if not
      */
     public boolean moveEntityIfCan(int x, int y, int x1, int y1){
-        if(entities[x][y] == null) {
+        if(entities[x1][y1] == null) {
             moveEntity(x, y, x1, y1);
             return true;
         }
         return false;
+    }
+
+    public boolean isEntityAt(int x, int y, Entity entity){
+        return x >= 0 &&
+                y >= 0 &&
+                x < size &&
+                y < size &&
+                entities[x][y] != null &&
+                entities[x][y].equals(entity);
     }
 
     public void show(){

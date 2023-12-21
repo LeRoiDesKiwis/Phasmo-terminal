@@ -5,12 +5,6 @@ import fr.leroideskiwis.phasmo.rooms.Room;
 
 public class Entity implements Showable {
 
-    private Location location;
-
-    public Entity(Location location) {
-        this.location = location;
-    }
-
     @Override
     public boolean canBeShow() {
         return true;
